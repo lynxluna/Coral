@@ -1,5 +1,8 @@
 package com.ykode.coral.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,5 +20,6 @@ public class EntityTest {
     final Entity<UUID, Person> p2 = new Entity<UUID, Person>(personId, s2, 1);
 
     assertThat(p1).isEqualTo(p2);
+    assertThat(Collections.singletonList(p1)).contains(p2);
   }
 }
