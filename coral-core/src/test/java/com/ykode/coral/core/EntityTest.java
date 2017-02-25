@@ -21,5 +21,8 @@ public class EntityTest {
 
     assertThat(p1).isEqualTo(p2);
     assertThat(Collections.singletonList(p1)).contains(p2);
+    assertThat(p1.getState()).isEqualTo(s1);
+    assertThat(p1.getId()).isEqualTo(personId);
+    assertThat(p1.getVersion()).isEqualTo(0);
   }
 }
