@@ -32,8 +32,8 @@
 
   <groupId>com.ykode</groupId>
   <artifactId>coral</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Coral, Domain Driven Development Library</name>
+  <version>0.1.0-SNAPSHOT</version>
+  <name>Coral</name>
   <packaging>pom</packaging>
   <modules>
     <module>coral-core</module>

@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>com.ykode</groupId>
 		<artifactId>coral</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>coral-core</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Core API and Base Classes</name>
+	<name>Coral Core</name>
 
 	<dependencies>
 		<dependency>
