@@ -1,4 +1,4 @@
-package io.getcoral.core.util;
+package com.ykode.coral.core.util;
 
 /**
  * Implement this to mark the builder of Value Object

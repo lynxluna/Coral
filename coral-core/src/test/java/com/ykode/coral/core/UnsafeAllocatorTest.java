@@ -1,10 +1,11 @@
-package io.getcoral.core;
+package com.ykode.coral.core;
 
-import io.getcoral.core.util.UnsafeAllocator;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.ykode.coral.core.util.UnsafeAllocator;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
 
@@ -29,11 +30,21 @@ public class UnsafeAllocatorTest {
   @Test
   public void testAllocationFailures() {
     assertThatExceptionOfType(UnsupportedOperationException.class)
-        .isThrownBy(() -> allocator.newInstance(SomeInterface.class))
+        .isThrownBy(new ThrowableAssert.ThrowingCallable() {
+          @Override
+          public void call() throws Throwable {
+            allocator.newInstance(SomeInterface.class);
+          }
+        })
         .withMessageContaining("Interface");
 
     assertThatExceptionOfType(UnsupportedOperationException.class)
-        .isThrownBy(() -> allocator.newInstance(SomeAbstractClass.class))
+        .isThrownBy(new ThrowableAssert.ThrowingCallable() {
+          @Override
+          public void call() throws Throwable {
+            allocator.newInstance(SomeAbstractClass.class);
+          }
+        })
         .withMessageContaining("Abstract");
   }
 

@@ -1,13 +1,15 @@
-package io.getcoral.core;
+package com.ykode.coral.core;
 
-import io.getcoral.core.util.ValueObject;
+import com.ykode.coral.core.util.ValueObject;
 
 /**
- * Command information. Contains command information to be executed. This is also a {@link ValueObject}
- * instance. This class is immutable. To create an instance of this class you need to invoke
+ * Command information. Contains command information to be executed.
+ * This is also a {@link ValueObject} instance. This class is immutable.
+ * To create an instance of this class you need to invoke
+ * {@link #newBuilder(Command) newBuilder}
  *
- * @param <I>
- * @param <S>
+ * @param <I> The type of identity used by entity
+ * @param <S> The type of the state in which {@link #command} is applied to
  */
 public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
   private final I entityId;
@@ -32,20 +34,34 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
     return targetVersion;
   }
 
+  public static <I, S> Builder<I, S> newBuilder(final Command<S> command) {
+    return new Builder<I, S>(null, command, 0);
+  }
+
   @Override
-  public Builder CopyBuilder() {
+  public Builder<I, S> copyBuilder() {
     return new Builder(entityId, command, targetVersion);
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     CommandInfo<?, ?> that = (CommandInfo<?, ?>) o;
 
-    if (targetVersion != that.targetVersion) return false;
-    if (entityId != null ? !entityId.equals(that.entityId) : that.entityId != null) return false;
+    if (targetVersion != that.targetVersion) {
+      return false;
+    }
+
+    if (entityId != null ? !entityId.equals(that.entityId) : that.entityId != null) {
+      return false;
+    }
     return command.equals(that.command);
   }
 
@@ -57,7 +73,7 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
     return result;
   }
 
-  public class Builder {
+  public static class Builder<I, S> {
     private I entityId;
     private Command<S> command;
     private int targetVersion;
@@ -73,15 +89,18 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
     }
 
     public Builder setEntityId(I entityId) {
-      this.entityId = entityId; return this;
+      this.entityId = entityId;
+      return this;
     }
 
     public Builder setCommand(Command<S> command) {
-      this.command = command; return this;
+      this.command = command;
+      return this;
     }
 
     public Builder setTargetVersion(int targetVersion) {
-      this.targetVersion = targetVersion; return this;
+      this.targetVersion = targetVersion;
+      return this;
     }
   }
 }

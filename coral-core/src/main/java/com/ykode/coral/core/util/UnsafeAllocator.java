@@ -1,11 +1,11 @@
-package io.getcoral.core.util;
+package com.ykode.coral.core.util;
 
-import javax.annotation.Nonnull;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import javax.annotation.Nonnull;
 
 /**
  * Class with unsafe operations, please use sparingly. This class will
@@ -28,15 +28,17 @@ public abstract class UnsafeAllocator {
     final int modifiers = klass.getModifiers();
 
     if (Modifier.isInterface(modifiers)) {
-      throw new UnsupportedOperationException("Interface cannot be instantiated: " + klass.getName());
+      throw new UnsupportedOperationException("Interface cannot be instantiated: "
+          + klass.getName());
     }
     if (Modifier.isAbstract(modifiers)) {
-      throw new UnsupportedOperationException("Abstract class cannot be instantiated: " + klass.getName());
+      throw new UnsupportedOperationException("Abstract class cannot be instantiated: "
+          + klass.getName());
     }
   }
 
   /**
-   * Create an UnsafeAllocator
+   * Create an UnsafeAllocator.
    *
    * @return an instance of {@link UnsafeAllocator}
    */
@@ -56,8 +58,7 @@ public abstract class UnsafeAllocator {
           return (T) allocateInstance.invoke(unsafe, c);
         }
       };
-    }
-    catch (Exception _ignored_) {
+    } catch (Exception ignored) {
       // Ignoramus
     }
 
@@ -78,7 +79,7 @@ public abstract class UnsafeAllocator {
           return (T) newInstance.invoke(null, c, constructorId);
         }
       };
-    } catch (Exception _ignored_) {
+    } catch (Exception ignored) {
       // Ignoramus
     }
 
@@ -95,8 +96,7 @@ public abstract class UnsafeAllocator {
           return (T) newInstance.invoke(null, c, Object.class);
         }
       };
-    }
-    catch (Exception _ignored_) {
+    } catch (Exception ignored) {
       // Ignoramus
     }
 
