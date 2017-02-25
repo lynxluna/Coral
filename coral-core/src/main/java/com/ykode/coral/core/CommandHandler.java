@@ -74,12 +74,16 @@ public final class CommandHandler<I, S> {
 
                 final int lastVer = infos.get(infos.size() - 1).getVersion();
                 final List<EventInfo<I, S>> eventInfos = new ArrayList<EventInfo<I, S>>();
-                List<Event<S>> results = aggregate.exec(state, command);
+                try {
+                  List<Event<S>> results = aggregate.exec(state, command);
 
-                for (int i = 0; i < results.size(); ++i) {
-                  eventInfos.add(EventInfo.newBuilder(id, results.get(i), lastVer + i).build());
+                  for (int i = 0; i < results.size(); ++i) {
+                    eventInfos.add(EventInfo.newBuilder(id, results.get(i), lastVer + i).build());
+                  }
+                  handler.onSuccess(eventInfos);
+                } catch (Exception e) {
+                  handler.onError(e);
                 }
-                handler.onSuccess(eventInfos);
             }
         };
         store.load(id, loadHandler);

@@ -34,5 +34,5 @@ public interface Aggregate<S> {
    * @param command The command to be executed.
    * @return The events emitted as the result of command execution.
    */
-  List<Event<S>> exec(@Nonnull S state, @Nonnull Command<S> command);
+  List<Event<S>> exec(@Nonnull S state, @Nonnull Command<S> command) throws Exception;
 }
