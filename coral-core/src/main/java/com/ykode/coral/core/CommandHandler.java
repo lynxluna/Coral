@@ -78,7 +78,7 @@ public final class CommandHandler<I, S> {
                   List<Event<S>> results = aggregate.exec(state, command);
 
                   for (int i = 0; i < results.size(); ++i) {
-                    eventInfos.add(EventInfo.newBuilder(id, results.get(i), lastVer + i).build());
+                    eventInfos.add(EventInfo.newBuilder(id, results.get(i), lastVer + i + 1).build());
                   }
                   handler.onSuccess(eventInfos);
                 } catch (Exception e) {

@@ -4,6 +4,8 @@ import com.ykode.coral.core.handlers.AsyncHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,8 +42,53 @@ public class CommandHandlerTest {
     MockitoAnnotations.initMocks(this);
   }
 
+
   @Test
-  public void testCommandHandlerCreation() throws Exception{
+  public void testCommandHandlerMutation() throws Exception {
+    //Given
+    final UUID existingID = UUID.fromString("365DED57-0A64-48E4-A7BC-EE399EC6815A");
+    final ChangePersonName changeName = new ChangePersonName("Didiet Noor");
+    final PersonCreated personCreated  = new PersonCreated("Didiet", 29);
+    final PersonNameChanged personNameChanged = new PersonNameChanged("Didiet Noor");
+    final EventInfo<UUID, Person> personInfo = EventInfo
+        .<UUID, Person>newBuilder(existingID, personCreated, 0)
+        .build();
+
+    final Person zero = new Person("", 0);
+    // prepare the mocks
+    when(mockAggregate.getZero()).thenReturn(zero);
+    when(mockAggregate.apply(zero, personCreated)).thenReturn(new Person(personCreated.getName(), personCreated.getAge()));
+    when(mockAggregate.exec(Mockito.<Person>any(), eq(changeName)))
+        .thenReturn(Collections.<Event<Person>>singletonList(personNameChanged));
+
+    doAnswer(new Answer<Void>() {
+      @Override
+      public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
+        @SuppressWarnings("unchecked")
+        AsyncHandler<List<EventInfo<UUID, Person>>> cb = (AsyncHandler<List<EventInfo<UUID, Person>>>) invocationOnMock.getArguments()[1];
+        cb.onSuccess(Collections.singletonList(personInfo));
+        return null;
+      }
+    }).when(mockStore).load(eq(existingID), Mockito.<AsyncHandler<List<EventInfo<UUID, Person>>>>any());
+
+
+    final CommandHandler<UUID, Person> cmdHandler = new CommandHandler<UUID, Person>(mockAggregate, mockStore, mockGenerator);
+    cmdHandler.handle(existingID, changeName, receiver);
+
+    //Then
+    verify(mockStore, times(1)).load(eq(existingID),
+        Mockito.<AsyncHandler<List<EventInfo<UUID, Person>>>>any());
+    verify(receiver, times(1)).onSuccess(successCaptor.capture());
+
+    final EventInfo<UUID, Person> result = successCaptor.getValue().get(0);
+    assertThat(result.getEntityId()).isEqualTo(existingID);
+    assertThat(result.getEvent()).isEqualTo(personNameChanged);
+    assertThat(result.getVersion()).isEqualTo(1);
+
+  }
+
+  @Test
+  public void testCommandHandlerCreation() throws Exception {
 
     // Given
     final UUID fakeUUID = UUID.fromString("CB6CA9A0-6DDA-4CDB-82A8-639753740B5F");
