@@ -84,10 +84,6 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
       this.targetVersion = targetVersion;
     }
 
-    private Builder(Command<S> command) {
-      this.command = command;
-    }
-
     public Builder setEntityId(I entityId) {
       this.entityId = entityId;
       return this;
@@ -101,6 +97,10 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
     public Builder setTargetVersion(int targetVersion) {
       this.targetVersion = targetVersion;
       return this;
+    }
+
+    public CommandInfo<I, S> build() {
+      return new CommandInfo<I, S>(entityId, command, targetVersion);
     }
   }
 }

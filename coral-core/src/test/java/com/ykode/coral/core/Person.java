@@ -75,6 +75,33 @@ class CreatePerson implements Command<Person> {
   }
 }
 
+class ChangePersonName implements Command<Person> {
+  private final String name;
+
+  public ChangePersonName(@Nonnull String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ChangePersonName that = (ChangePersonName) o;
+
+    return name.equals(that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return name.hashCode();
+  }
+}
+
 class PersonNameChanged implements Event<Person> {
   private final String name;
 
