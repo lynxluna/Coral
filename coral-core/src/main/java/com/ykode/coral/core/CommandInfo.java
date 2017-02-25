@@ -40,7 +40,7 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
 
   @Override
   public Builder<I, S> copyBuilder() {
-    return new Builder(entityId, command, targetVersion);
+    return new Builder<I, S>(entityId, command, targetVersion);
   }
 
   @Override
