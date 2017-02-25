@@ -1,5 +1,7 @@
 package com.ykode.coral.core;
 
+import javax.annotation.Nonnull;
+
 // dummy state class
 class Person {
   private final String name;
@@ -73,11 +75,38 @@ class CreatePerson implements Command<Person> {
   }
 }
 
+class PersonNameChanged implements Event<Person> {
+  private final String name;
+
+  public PersonNameChanged(@Nonnull String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    PersonNameChanged that = (PersonNameChanged) o;
+
+    return name.equals(that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return name.hashCode();
+  }
+}
+
 class PersonCreated implements Event<Person> {
   private final String name;
   private final int age;
 
-  public PersonCreated(String name, int age) {
+  public PersonCreated(@Nonnull String name, int age) {
     this.name = name;
     this.age = age;
   }

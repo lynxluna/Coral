@@ -121,7 +121,7 @@ public class EventInfo<I, S> implements ValueObject<EventInfo.Builder> {
    * The Builder for copying values and change some properties.
    */
   @Override
-  public Builder copyBuilder() {
+  public Builder<I, S> copyBuilder() {
     return new Builder<I, S>(entityId, event, version, date);
   }
 
