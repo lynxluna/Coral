@@ -13,5 +13,8 @@ addons:
     packages:
       - oracle-java8-installer
 
-after_success:
+scripts:
   - mvn clean test jacoco:report coveralls:report
+
+after_success:
+  - ./scripts/oss-jfrog-deploy.sh
