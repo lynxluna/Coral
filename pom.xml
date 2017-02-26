@@ -229,8 +229,8 @@
 
   <distributionManagement>
     <repository>
-      <id>bintray</id>
-      <url>https://api.bintray.com/maven/ykode/coral/coral/</url>
+      <id>jfrog-snapshot</id>
+      <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
     </repository>
   </distributionManagement>
 </project>
