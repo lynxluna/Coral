@@ -1,5 +1,6 @@
 package com.ykode.coral.core;
 
+import com.ykode.coral.core.util.Builder;
 import com.ykode.coral.core.util.ValueObject;
 
 /**
@@ -22,22 +23,50 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
     this.targetVersion = targetVersion;
   }
 
+  /**
+   * Getting Entity ID.
+   *
+   * @return Entity Identity
+   */
   public I getEntityId() {
     return entityId;
   }
 
+  /**
+   * Getting encapsulated command.
+   *
+   * @return command to be executed
+   */
   public Command<S> getCommand() {
     return command;
   }
 
+  /**
+   * Getting target version in which command will be executed
+   *
+   * @return entity target version
+   */
   public int getTargetVersion() {
     return targetVersion;
   }
 
+  /**
+   * Creates new builder for {@link CommandInfo}.
+   *
+   * @param command the command to be included in command info
+   * @param <I> Identity type
+   * @param <S> State type
+   * @return a builder instance for {@link CommandInfo} class.
+   */
   public static <I, S> Builder<I, S> newBuilder(final Command<S> command) {
     return new Builder<I, S>(null, command, 0);
   }
 
+  /**
+   * Creating builder to copy current {@link CommandInfo} values.
+   *
+   * @return
+   */
   @Override
   public Builder<I, S> copyBuilder() {
     return new Builder<I, S>(entityId, command, targetVersion);
@@ -73,7 +102,13 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
     return result;
   }
 
-  public static class Builder<I, S> {
+  /**
+   * Builder for Command Info
+   *
+   * @param <I> Entity identity type.
+   * @param <S> State type.
+   */
+  public static class Builder<I, S> implements com.ykode.coral.core.util.Builder<CommandInfo<I, S>> {
     private I entityId;
     private Command<S> command;
     private int targetVersion;
@@ -84,21 +119,45 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
       this.targetVersion = targetVersion;
     }
 
+    /**
+     * Setting entity id of the builder.
+     *
+     * @param entityId the entity id.
+     * @return builder with new entity id.
+     */
     public Builder setEntityId(I entityId) {
       this.entityId = entityId;
       return this;
     }
 
+    /**
+     * Setting command of the builder.
+     *
+     * @param command the command.
+     * @return the builder with new command
+     */
     public Builder setCommand(Command<S> command) {
       this.command = command;
       return this;
     }
 
+    /**
+     * Setting target version of the builder.
+     *
+     * @param targetVersion target version.
+     * @return the builder with target version.
+     */
     public Builder setTargetVersion(int targetVersion) {
       this.targetVersion = targetVersion;
       return this;
     }
 
+    /**
+     * Creates {@link CommandInfo instance}.
+     *
+     * @return CommandInfo instance.
+     */
+    @Override
     public CommandInfo<I, S> build() {
       return new CommandInfo<I, S>(entityId, command, targetVersion);
     }
