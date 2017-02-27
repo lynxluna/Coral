@@ -13,7 +13,35 @@ data class PersonNameChanged(val name: String) : Event<Person>
 class EventStoreTest {
 
   @Test
-  fun testEventStoreExtensions() {
+  fun testEventStoreCommitExtensions() {
+
+    // Given
+    val store  = mock<EventStore<UUID, Person>>()
+    val successReceiver = mock<(UUID) -> Unit>()
+    val failureReceiver = mock<(Throwable) -> Unit>()
+
+    val fakeId = UUID.fromString("1D86295B-0213-4780-B52F-5616F794DABE")
+    val personCreated = PersonCreated("Didiet", 22)
+    val personNameChanged = PersonNameChanged("Didiet Noor")
+
+    val info1 = EventInfo.newBuilder(fakeId, personCreated, 0).build()
+    val info2 = EventInfo.newBuilder(fakeId, personNameChanged, 1).build()
+
+    doAnswer {
+      @Suppress("UNCHECKED")
+      val handler = it.arguments[1] as AsyncHandler<UUID>
+      handler.onSuccess(fakeId)
+    }.whenever(store).commit(any(), any())
+
+    store.commit(info = info1, success = successReceiver, error = failureReceiver)
+    store.commit(info = info2, success = successReceiver, error = failureReceiver)
+
+    verify(successReceiver, times(2)).invoke(eq(fakeId))
+    verify(failureReceiver, never()).invoke(any())
+  }
+
+  @Test
+  fun testEventStoreLoadExtensions() {
 
     // Given
     val store  = mock<EventStore<UUID, Person>>()
