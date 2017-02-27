@@ -122,9 +122,11 @@ public class CommandHandlerTest {
 
   @Test
   public void testCommandHandlerCreationFailed() throws InvalidCommandException {
+
     // Given
-    when(mockAggregate.exec(Mockito.<Person>any(), Mockito.<Command<Person>>any()))
-        .thenThrow(new InvalidCommandException("Command cannot be applied to the state"));
+    final InvalidCommandException e =
+        new InvalidCommandException(new ChangePersonName("Didiet"), new Person("", 0));
+    when(mockAggregate.exec(Mockito.<Person>any(), Mockito.<Command<Person>>any())).thenThrow(e);
 
     // When
     final CommandHandler<UUID, Person> cmdHandler =
@@ -134,6 +136,6 @@ public class CommandHandlerTest {
     // Then
     verify(receiver, times(1)).onError(errorCaptor.capture());
     assertThat(errorCaptor.getValue()).isInstanceOf(InvalidCommandException.class);
-    assertThat(errorCaptor.getValue()).hasMessageContaining("Command cannot be applied to the state");
+    assertThat(errorCaptor.getValue()).hasMessageContaining("Invalid command");
   }
 }

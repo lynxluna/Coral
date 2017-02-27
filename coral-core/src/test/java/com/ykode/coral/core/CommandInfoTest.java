@@ -2,6 +2,7 @@ package com.ykode.coral.core;
 
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 
@@ -17,6 +18,7 @@ public class CommandInfoTest {
     assertThat(commandInfo.getEntityId()).isNull();
     assertThat(commandInfo.getTargetVersion()).isZero();
 
+    @SuppressWarnings("unchecked")
     final CommandInfo<UUID, Person> ci2 = commandInfo.copyBuilder()
         .setCommand(new ChangePersonName("noname"))
         .setEntityId(fakeUUID)

@@ -128,7 +128,7 @@ public class EventInfo<I, S> implements ValueObject<EventInfo.Builder> {
   /**
    * Builder for {@link EventInfo}.
    */
-  public static class Builder<I, S> implements com.ykode.coral.core.util.Builder<EventInfo<I, S>> {
+  public static class Builder<I, S> {
     private I entityId;
     private Event<S> event;
     private int version;

@@ -1,6 +1,5 @@
 package com.ykode.coral.core;
 
-import com.ykode.coral.core.util.Builder;
 import com.ykode.coral.core.util.ValueObject;
 
 /**
@@ -108,7 +107,7 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
    * @param <I> Entity identity type.
    * @param <S> State type.
    */
-  public static class Builder<I, S> implements com.ykode.coral.core.util.Builder<CommandInfo<I, S>> {
+  public static class Builder<I, S> {
     private I entityId;
     private Command<S> command;
     private int targetVersion;
@@ -157,7 +156,6 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
      *
      * @return CommandInfo instance.
      */
-    @Override
     public CommandInfo<I, S> build() {
       return new CommandInfo<I, S>(entityId, command, targetVersion);
     }

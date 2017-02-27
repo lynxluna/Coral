@@ -14,7 +14,7 @@ public class EventInfoTest {
     final Date fakeDate = new Date();
     final Event<Person> personCreated = new PersonCreated("Didiet", 22);
 
-
+    @SuppressWarnings("unchecked")
     final EventInfo<UUID, Person> eventInfo =
         EventInfo.newBuilder(personId, personCreated, 0).setDate(fakeDate).build();
 
@@ -32,10 +32,11 @@ public class EventInfoTest {
     final Date fakeDate = new Date();
     final Event<Person> personCreated = new PersonCreated("Didiet", 22);
 
-
+    @SuppressWarnings("unchecked")
     final EventInfo<UUID, Person> eventInfo =
         EventInfo.newBuilder(personId, personCreated, 0).setDate(fakeDate).build();
 
+    @SuppressWarnings("unchecked")
     final EventInfo<UUID, Person> evi2 = eventInfo.copyBuilder()
         .setDate(new Date())
         .setEvent(new PersonNameChanged("Didiet Noor"))
