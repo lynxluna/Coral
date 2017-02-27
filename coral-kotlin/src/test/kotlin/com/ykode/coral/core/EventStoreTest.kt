@@ -6,6 +6,7 @@ import com.ykode.coral.core.handlers.AsyncHandler
 import java.util.*
 
 data class Person(val name: String, val age: Int)
+data class CreatePerson(val name: String, val age: Int) : Command<Person>
 data class PersonCreated(val name: String, val age: Int) : Event<Person>
 data class PersonNameChanged(val name: String) : Event<Person>
 
