@@ -49,6 +49,7 @@
       <groupId>com.nhaarman</groupId>
       <artifactId>mockito-kotlin</artifactId>
       <version>1.2.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
