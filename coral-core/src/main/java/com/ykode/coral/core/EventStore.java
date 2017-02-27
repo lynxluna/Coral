@@ -31,10 +31,8 @@ public interface EventStore<I, S> {
 
   /**
    * Commits an event to the event store.
-   *
-   * @param id the entity id.
-   * @param eventInfo event information to be persisted.
+   *  @param eventInfo event information to be persisted.
    * @param handler the handler of the commit operation
    */
-  void commit(I id, EventInfo<I, S> eventInfo, AsyncHandler<I> handler);
+  void commit(EventInfo<I, S> eventInfo, AsyncHandler<I> handler);
 }

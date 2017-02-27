@@ -6,6 +6,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.sourceEncoding>UTF-8</project.reporting.sourceEncoding>
     <java.version>1.6</java.version>
+    <coral.version>0.1.0-SNAPSHOT</coral.version>
   </properties>
 
   <scm>
@@ -34,6 +35,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>coral-core</module>
+    <module>coral-memory-store</module>
   </modules>
 
   <dependencyManagement>
