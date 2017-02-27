@@ -13,7 +13,7 @@ addons:
   apt:
     packages:
     - oracle-java8-installer
-scripts:
-- mvn clean test jacoco:report coveralls:report
+script:
+  - mvn clean test jacoco:report coveralls:report
 after_success:
-- cp -a settings.xml $HOME/.m2/ && ./scripts/oss-jfrog-deploy.sh
+  - cp -a settings.xml $HOME/.m2/ && ./scripts/oss-jfrog-deploy.sh
