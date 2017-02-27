@@ -1,5 +1,7 @@
 package com.ykode.coral.core;
 
+import com.ykode.coral.core.exceptions.InvalidCommandException;
+
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -34,5 +36,5 @@ public interface Aggregate<S> {
    * @param command The command to be executed.
    * @return The events emitted as the result of command execution.
    */
-  List<Event<S>> exec(@Nonnull S state, @Nonnull Command<S> command) throws Exception;
+  List<Event<S>> exec(@Nonnull S state, @Nonnull Command<S> command) throws InvalidCommandException;
 }

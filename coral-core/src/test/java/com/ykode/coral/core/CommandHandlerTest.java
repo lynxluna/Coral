@@ -1,5 +1,6 @@
 package com.ykode.coral.core;
 
+import com.ykode.coral.core.exceptions.InvalidCommandException;
 import com.ykode.coral.core.handlers.AsyncHandler;
 import org.junit.Before;
 import org.junit.Test;
@@ -120,10 +121,10 @@ public class CommandHandlerTest {
   }
 
   @Test
-  public void testCommandHandlerCreationFailed() throws Exception {
+  public void testCommandHandlerCreationFailed() throws InvalidCommandException {
     // Given
     when(mockAggregate.exec(Mockito.<Person>any(), Mockito.<Command<Person>>any()))
-        .thenThrow(new Exception("Invalid Command"));
+        .thenThrow(new InvalidCommandException("Command cannot be applied to the state"));
 
     // When
     final CommandHandler<UUID, Person> cmdHandler =
@@ -132,6 +133,7 @@ public class CommandHandlerTest {
 
     // Then
     verify(receiver, times(1)).onError(errorCaptor.capture());
-    assertThat(errorCaptor.getValue()).hasMessageContaining("Invalid Command");
+    assertThat(errorCaptor.getValue()).isInstanceOf(InvalidCommandException.class);
+    assertThat(errorCaptor.getValue()).hasMessageContaining("Command cannot be applied to the state");
   }
 }
