@@ -37,6 +37,7 @@
     <module>coral-core</module>
     <module>coral-memory-store</module>
     <module>coral-kotlin</module>
+    <module>coral-dispatcher</module>
   </modules>
 
   <dependencyManagement>

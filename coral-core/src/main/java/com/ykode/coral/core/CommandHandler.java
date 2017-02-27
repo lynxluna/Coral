@@ -45,7 +45,7 @@ public final class CommandHandler<I, S> {
               final AsyncHandler<List<EventInfo<I, S>>> handler) {
     if (null == id) {
       try {
-        final List<Event<S>> evts = aggregate.exec(aggregate.getZero(), command);
+        final List<? extends Event<S>> evts = aggregate.exec(aggregate.getZero(), command);
         final I newId = idGenerator.nextValue();
 
         final List<EventInfo<I, S>> results = new ArrayList<EventInfo<I, S>>();
@@ -89,7 +89,7 @@ public final class CommandHandler<I, S> {
                 final int lastVer = infos.get(infos.size() - 1).getVersion();
                 final List<EventInfo<I, S>> eventInfos = new ArrayList<EventInfo<I, S>>();
                 try {
-                  List<Event<S>> results = aggregate.exec(state, command);
+                  final List<? extends Event<S>> results = aggregate.exec(state, command);
 
                   for (int i = 0; i < results.size(); ++i) {
                     eventInfos.add(EventInfo.newBuilder(id,

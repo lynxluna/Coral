@@ -26,7 +26,7 @@ public interface Aggregate<S> {
    * @param event The event to be applied.
    * @return The result of the state where event is applied.
    */
-  S apply(@Nonnull  S state, @Nonnull Event<S> event);
+  S apply(@Nonnull S state, @Nonnull Event<S> event);
 
   /**
    * Executes command to a state, returns one or more events as the result of

@@ -50,7 +50,7 @@ public class InMemoryEventStore<I, S> implements EventStore<I, S> {
   public void load(final I id,
                    final int version,
                    final AsyncHandler<List<EventInfo<I, S>>> handler) {
-    
+
     this.load(id, new AsyncHandler<List<EventInfo<I, S>>>() {
       @Override
       public void onError(@Nonnull Exception exception) {

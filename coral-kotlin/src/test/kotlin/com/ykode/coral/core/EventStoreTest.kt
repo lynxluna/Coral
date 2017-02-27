@@ -28,7 +28,7 @@ class EventStoreTest {
     val info2 = EventInfo.newBuilder(fakeId, personNameChanged, 1).build()
 
     doAnswer {
-      @Suppress("UNCHECKED")
+      @Suppress("UNCHECKED_CAST")
       val handler = it.arguments[1] as AsyncHandler<UUID>
       handler.onSuccess(fakeId)
     }.whenever(store).commit(any(), any())
@@ -57,13 +57,13 @@ class EventStoreTest {
     val infos = listOf(info1, info2)
 
     doAnswer {
-      @Suppress("UNCHECKED")
+      @Suppress("UNCHECKED_CAST")
       val handler = it.arguments[1] as AsyncHandler<List<EventInfo<UUID, Person>>>
       handler.onSuccess(infos)
     }.whenever(store).load(eq(fakeId), any())
 
     doAnswer {
-      @Suppress("UNCHECKED")
+      @Suppress("UNCHECKED_CAST")
       val handler = it.arguments[2] as AsyncHandler<List<EventInfo<UUID, Person>>>
       handler.onSuccess(listOf(info1))
     }.whenever(store).load(eq(fakeId), eq(0), any())

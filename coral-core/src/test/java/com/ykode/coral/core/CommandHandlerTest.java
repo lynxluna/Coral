@@ -59,7 +59,7 @@ public class CommandHandlerTest {
     when(mockAggregate.getZero()).thenReturn(zero);
     when(mockAggregate.apply(zero, personCreated)).thenReturn(new Person(personCreated.getName(), personCreated.getAge()));
     when(mockAggregate.exec(Mockito.<Person>any(), eq(changeName)))
-        .thenReturn(Collections.<Event<Person>>singletonList(personNameChanged));
+        .thenReturn(Collections.singletonList((Event<Person>) personNameChanged));
 
     doAnswer(new Answer<Void>() {
       @Override
