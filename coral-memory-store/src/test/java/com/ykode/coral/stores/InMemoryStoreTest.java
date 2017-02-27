@@ -1,17 +1,16 @@
 package com.ykode.coral.stores;
 
-import com.ykode.coral.core.Event;
 import com.ykode.coral.core.EventInfo;
 import com.ykode.coral.core.handlers.AsyncHandler;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
 
-import static org.mockito.Mockito.*;
-
 import java.util.List;
 import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 public class InMemoryStoreTest {
 

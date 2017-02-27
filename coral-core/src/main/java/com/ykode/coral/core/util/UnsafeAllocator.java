@@ -1,5 +1,6 @@
 package com.ykode.coral.core.util;
 
+
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Field;

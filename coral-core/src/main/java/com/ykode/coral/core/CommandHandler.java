@@ -1,12 +1,19 @@
 package com.ykode.coral.core;
 
 import com.ykode.coral.core.handlers.AsyncHandler;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.annotation.Nonnull;
 
+/**
+ * Command Handler classe, it execute commands.
+ *
+ * @param <I> Identity Type
+ * @param <S> State Type
+ */
 public final class CommandHandler<I, S> {
   private final Aggregate<S> aggregate;
   private final EventStore<I, S> store;
@@ -27,7 +34,14 @@ public final class CommandHandler<I, S> {
     this.idGenerator = idGenerator;
   }
 
-  void handle(final I id, final @Nonnull Command<S> command,
+  /**
+   * Handles command executed against an entity.
+   *
+   * @param id Entity Identity.
+   * @param command command to be handled.
+   * @param handler the handler of type {@link AsyncHandler} to catch the result of execution.
+   */
+  public void handle(final I id, final @Nonnull Command<S> command,
               final AsyncHandler<List<EventInfo<I, S>>> handler) {
     if (null == id) {
       try {

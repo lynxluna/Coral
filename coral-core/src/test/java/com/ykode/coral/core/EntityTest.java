@@ -1,10 +1,10 @@
 package com.ykode.coral.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import org.junit.Test;
+
 import java.util.Collections;
 import java.util.UUID;
-import org.junit.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 

@@ -1,8 +1,8 @@
 package com.ykode.coral.core
 
-import org.junit.Test
 import com.nhaarman.mockito_kotlin.*
 import com.ykode.coral.core.handlers.AsyncHandler
+import org.junit.Test
 import java.util.*
 
 data class Person(val name: String, val age: Int)

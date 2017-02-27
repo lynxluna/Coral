@@ -41,7 +41,7 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
   }
 
   /**
-   * Getting target version in which command will be executed
+   * Getting target version in which command will be executed.
    *
    * @return entity target version
    */
@@ -64,7 +64,7 @@ public class CommandInfo<I, S> implements ValueObject<CommandInfo.Builder> {
   /**
    * Creating builder to copy current {@link CommandInfo} values.
    *
-   * @return
+   * @return an CommandInfo builder.
    */
   @Override
   public Builder<I, S> copyBuilder() {

@@ -14,7 +14,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 
-
 public class InMemoryEventStore<I, S> implements EventStore<I, S> {
   private List<EventInfo<I, S>> storage = new ArrayList<EventInfo<I, S>>();
 
