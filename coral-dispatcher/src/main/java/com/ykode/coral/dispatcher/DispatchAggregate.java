@@ -4,6 +4,8 @@ import com.ykode.coral.core.Aggregate;
 import com.ykode.coral.core.Command;
 import com.ykode.coral.core.Event;
 import com.ykode.coral.core.exceptions.InvalidCommandException;
+import com.ykode.coral.dispatcher.exceptions.ExecutorEmptyException;
+import com.ykode.coral.dispatcher.exceptions.ExecutorNotFoundException;
 
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -15,12 +17,16 @@ public class DispatchAggregate<S> implements Aggregate<S> {
 
   public DispatchAggregate(@Nonnull S zero) {
     this.zero = zero;
+    this.executors = new ExecutorManager<S>();
+    this.eventHandlers = new EventHandlerManager<S>();
   }
 
   @Override
   public List<Event<S>> exec(@Nonnull S state,
-                             @Nonnull Command<S> command)
-      throws InvalidCommandException {
+                             @Nonnull Command<S> command) throws
+      InvalidCommandException,
+      ExecutorNotFoundException,
+      ExecutorEmptyException {
     return executors.execute(state, command);
   }
 

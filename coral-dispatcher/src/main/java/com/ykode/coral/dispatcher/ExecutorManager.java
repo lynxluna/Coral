@@ -2,6 +2,8 @@ package com.ykode.coral.dispatcher;
 
 import com.ykode.coral.core.Command;
 import com.ykode.coral.core.Event;
+import com.ykode.coral.dispatcher.exceptions.ExecutorEmptyException;
+import com.ykode.coral.dispatcher.exceptions.ExecutorNotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +24,15 @@ class ExecutorManager<S> {
     executorMap.put(type, new ExecutorPair<S>(executor, validator));
   }
 
-  List<Event<S>> execute(S state, Command<S> command) {
+  List<Event<S>> execute(S state, Command<S> command)
+      throws ExecutorEmptyException, ExecutorNotFoundException {
+    if (executorMap.isEmpty()) {
+      throw new ExecutorEmptyException();
+    }
     final ExecutorPair<S> pair = executorMap.get(command.getClass());
+    if (pair == null) {
+      throw new ExecutorNotFoundException(command);
+    }
     return pair.execute(state, command);
   }
 }
