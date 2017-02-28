@@ -44,6 +44,7 @@ public class DispatchAggregateTest {
     // Given
     final Person zero = new Person("", 0);
     final PersonCreated personCreated = new PersonCreated("Didiet", 22);
+    final PersonNameChanged personNameChanged = new PersonNameChanged("Didiet Noor");
 
     when(mockHandler.apply(zero, personCreated))
         .thenReturn(new Person("Didiet", 22));
@@ -62,6 +63,13 @@ public class DispatchAggregateTest {
 
     // When
     final Person p = personDispatch.apply(zero, personCreated);
+    assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
+      @Override
+      public void call() throws Throwable {
+        personDispatch.apply(zero, personNameChanged);
+      }
+    }).isInstanceOf(EventHandlerNotFoundException.class)
+      .hasMessageContaining("There is no handler");
 
     // Then
     verify(mockHandler, times(1))

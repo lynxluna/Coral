@@ -128,6 +128,7 @@
           <useReleaseProfile>false</useReleaseProfile>
           <releaseProfiles>release</releaseProfiles>
           <autoVersionSubmodules>true</autoVersionSubmodules>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
       <plugin>
@@ -232,9 +233,13 @@
   </profiles>
 
   <distributionManagement>
-    <repository>
+    <snapshotRepository>
       <id>jfrog-snapshot</id>
       <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+    </snapshotRepository>
+    <repository>
+      <id>ykode-bintrays</id>
+      <url>https://api.bintray.com/maven/ykode/coral/coral/</url>
     </repository>
   </distributionManagement>
 </project>

@@ -1,7 +1,8 @@
 package com.ykode.coral.dispatcher.exceptions;
 
-import com.ykode.coral.core.Event;
-
+/**
+ * An exception raised when there's no event handler.
+ */
 public class EventHandlerEmptyException extends Exception {
 
   @Override

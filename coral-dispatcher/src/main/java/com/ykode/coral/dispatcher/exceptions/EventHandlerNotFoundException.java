@@ -2,6 +2,9 @@ package com.ykode.coral.dispatcher.exceptions;
 
 import com.ykode.coral.core.Event;
 
+/**
+ * Exception rasied when an {@link Event event} does dot have event handler.
+ */
 public class EventHandlerNotFoundException extends RuntimeException {
   private Event<?> event;
 

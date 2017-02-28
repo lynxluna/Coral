@@ -2,6 +2,9 @@ package com.ykode.coral.dispatcher.exceptions;
 
 import com.ykode.coral.core.Command;
 
+/**
+ * Exception raised if there's no executor for a {@link Command command}.
+ */
 public class ExecutorNotFoundException extends RuntimeException {
   private Command<?> command;
 

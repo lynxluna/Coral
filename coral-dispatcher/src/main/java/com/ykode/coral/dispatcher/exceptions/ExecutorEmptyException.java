@@ -1,5 +1,8 @@
 package com.ykode.coral.dispatcher.exceptions;
 
+/**
+ * Exception raised when executor is empty.
+ */
 public class ExecutorEmptyException extends RuntimeException{
   @Override
   public String getMessage() {

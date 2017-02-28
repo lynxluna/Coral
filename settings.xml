@@ -7,6 +7,11 @@
       <username>${env.CI_USERNAME}</username>
       <password>${env.CI_PASSWORD}</password>
     </server>
+    <server>
+      <id>ykode-bintray</id>
+      <username>${env.CI_USERNAME}</username>
+      <password>${env.CI_PASSWORD}</password>
+    </server>
   </servers>
   <profiles>
     <profile>
