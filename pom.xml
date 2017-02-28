@@ -38,6 +38,7 @@
     <module>coral-memory-store</module>
     <module>coral-core-kotlin</module>
     <module>coral-dispatcher</module>
+    <module>coral-moshi-codec</module>
   </modules>
 
   <dependencyManagement>
