@@ -6,6 +6,8 @@ import static org.mockito.Mockito.*;
 
 import com.ykode.coral.core.Event;
 import com.ykode.coral.core.exceptions.InvalidCommandException;
+import com.ykode.coral.dispatcher.exceptions.EventHandlerEmptyException;
+import com.ykode.coral.dispatcher.exceptions.EventHandlerNotFoundException;
 import com.ykode.coral.dispatcher.exceptions.ExecutorEmptyException;
 import com.ykode.coral.dispatcher.exceptions.ExecutorNotFoundException;
 import org.assertj.core.api.ThrowableAssert;
@@ -29,9 +31,44 @@ public class DispatchAggregateTest {
   @Mock
   private Validator<Person> mockValidator;
 
+  @Mock EventHandler<Person> mockHandler;
+
   @Before
   public void setUp() {
     MockitoAnnotations.initMocks(this);
+  }
+
+  @Test
+  public void testEventHandler() throws Exception {
+
+    // Given
+    final Person zero = new Person("", 0);
+    final PersonCreated personCreated = new PersonCreated("Didiet", 22);
+
+    when(mockHandler.apply(zero, personCreated))
+        .thenReturn(new Person("Didiet", 22));
+
+    // Then
+    assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
+      @Override
+      public void call() throws Throwable {
+        personDispatch.apply(zero, personCreated);
+      }
+    }).isInstanceOf(EventHandlerEmptyException.class)
+        .hasMessageContaining("No Handler");
+
+    // Given
+    personDispatch.addHandler(PersonCreated.class, mockHandler);
+
+    // When
+    final Person p = personDispatch.apply(zero, personCreated);
+
+    // Then
+    verify(mockHandler, times(1))
+        .apply(eq(zero), eq(personCreated));
+    assertThat(p.getName()).isEqualTo("Didiet");
+    assertThat(p.getAge()).isEqualTo(22);
+
   }
 
   @Test
@@ -50,7 +87,6 @@ public class DispatchAggregateTest {
 
     when(mockExecutor.execute(zero, createPerson))
         .thenReturn(Collections.singletonList((Event<Person>)personCreated));
-
 
     // Then
     assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
@@ -72,6 +108,14 @@ public class DispatchAggregateTest {
 
     assertThat(eventList).containsOnlyOnce(personCreated);
     assertThat(eventList).isNotEmpty();
+
+    // Then
+    assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
+      @Override
+      public void call() throws Throwable {
+        personDispatch.exec(zero, changeName);
+      }
+    }).isInstanceOf(ExecutorNotFoundException.class);
 
     // When
     personDispatch.addHandler(ChangePersonName.class, mockExecutor, mockValidator);

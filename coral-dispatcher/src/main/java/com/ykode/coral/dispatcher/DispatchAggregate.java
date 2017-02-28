@@ -4,6 +4,8 @@ import com.ykode.coral.core.Aggregate;
 import com.ykode.coral.core.Command;
 import com.ykode.coral.core.Event;
 import com.ykode.coral.core.exceptions.InvalidCommandException;
+import com.ykode.coral.dispatcher.exceptions.EventHandlerEmptyException;
+import com.ykode.coral.dispatcher.exceptions.EventHandlerNotFoundException;
 import com.ykode.coral.dispatcher.exceptions.ExecutorEmptyException;
 import com.ykode.coral.dispatcher.exceptions.ExecutorNotFoundException;
 
@@ -32,8 +34,8 @@ public class DispatchAggregate<S> implements Aggregate<S> {
 
   @Override
   public S apply(@Nonnull S state,
-                 @Nonnull Event<S> event) {
-    return eventHandlers.handle(state, event);
+                 @Nonnull Event<S> event) throws Exception {
+      return eventHandlers.handle(state, event);
   }
 
   @Override

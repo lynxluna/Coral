@@ -83,7 +83,12 @@ public final class CommandHandler<I, S> {
 
                 S state = aggregate.getZero();
                 for (final EventInfo<I, S> info : infos) {
-                  state = aggregate.apply(state, info.getEvent());
+                  try {
+                    state = aggregate.apply(state, info.getEvent());
+                  }
+                  catch (Exception e) {
+                    // continue;
+                  }
                 }
 
                 final int lastVer = infos.get(infos.size() - 1).getVersion();
