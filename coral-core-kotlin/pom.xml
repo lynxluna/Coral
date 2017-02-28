@@ -59,7 +59,7 @@
     <dependency>
       <groupId>com.ykode.coral</groupId>
       <artifactId>coral-core</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
+      <version>${coral.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
