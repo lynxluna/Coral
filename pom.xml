@@ -238,7 +238,7 @@
       <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
     </snapshotRepository>
     <repository>
-      <id>ykode-bintrays</id>
+      <id>ykode-bintray</id>
       <url>https://api.bintray.com/maven/ykode/coral/coral/</url>
     </repository>
   </distributionManagement>
