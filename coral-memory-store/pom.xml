@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.ykode.coral</groupId>
 			<artifactId>coral-core</artifactId>
-			<version>${coral.version}</version>
+			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
