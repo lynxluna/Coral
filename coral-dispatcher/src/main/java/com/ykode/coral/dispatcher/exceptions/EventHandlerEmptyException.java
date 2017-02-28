@@ -3,7 +3,7 @@ package com.ykode.coral.dispatcher.exceptions;
 /**
  * An exception raised when there's no event handler.
  */
-public class EventHandlerEmptyException extends Exception {
+public class EventHandlerEmptyException extends RuntimeException {
 
   @Override
   public String getMessage() {

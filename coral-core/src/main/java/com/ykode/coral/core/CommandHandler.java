@@ -85,8 +85,7 @@ public final class CommandHandler<I, S> {
                 for (final EventInfo<I, S> info : infos) {
                   try {
                     state = aggregate.apply(state, info.getEvent());
-                  }
-                  catch (Exception e) {
+                  } catch (Exception e) {
                     // continue;
                   }
                 }

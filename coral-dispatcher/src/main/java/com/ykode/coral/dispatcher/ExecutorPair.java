@@ -31,8 +31,7 @@ class ExecutorPair<S> {
   List<Event<S>> execute(S state, Command<S> command) throws InvalidCommandException {
     if (this.validator.validate(state, command)) {
       return this.executor.execute(state, command);
-    }
-    else {
+    } else {
       return Collections.emptyList();
     }
   }

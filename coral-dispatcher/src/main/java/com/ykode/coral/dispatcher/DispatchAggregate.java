@@ -45,7 +45,7 @@ public final class DispatchAggregate<S> implements Aggregate<S> {
   @Override
   public S apply(@Nonnull S state,
                  @Nonnull Event<S> event) throws Exception {
-      return eventHandlers.handle(state, event);
+    return eventHandlers.handle(state, event);
   }
 
   @Override
