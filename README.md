@@ -1,9 +1,9 @@
 # Coral
 
-[![Build Status](https://travis-ci.org/ykode/Coral.svg?branch=master)](https://travis-ci.org/ykode/Coral)
-[![Coverage Status](https://img.shields.io/coveralls/ykode/Coral/master.svg)](https://coveralls.io/github/ykode/Coral?branch=master)
+[![Build Status](https://travis-ci.org/Bhinneka/Coral.svg?branch=master)](https://travis-ci.org/Bhinneka/Coral)
+[![Coverage Status](https://coveralls.io/repos/github/Bhinneka/Coral/badge.svg?branch=master)](https://coveralls.io/github/Bhinneka/Coral?branch=master)
 
-A Domain Driven Design Library for the Java Virtual Machine.
+A Microservice Base Classes and Libraries.
 
 # LICENSE
 
