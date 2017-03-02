@@ -1,0 +1,37 @@
+language: java
+
+jdk:
+- oraclejdk8
+
+env:
+  global:
+  - PATH=$PATH:$HOME/.buckdir/bin
+  - CI_USERNAME=lynxluna
+  - secure: QKGFQHpRuyYXYuUBG6IUIkCoTADzQs0KaGKjJL7OGxloAf+lkD4J2mUn+4xYVJp4/YiikFDL1pGW0N7fPeEyOIrfBEYmLZd/OwEtGmO+Dte33gVZwmY5poJ79n5E2TpC1ANeoOyg/Jvo/ZtoX1gA2xaOmbKz2KgAjpa9v1YP4bl5fCiTk/Q00bdDwkFr+l6iwGxP2rM1F9LKOAZfjrEVs5mFrvVrnDe1isN906xVSm/HPlLqgQC/HHxubfqYZNL4NjwFf/suBgfSQZjmS7zn1hG8N3MdASwv+Kabhk4ZbHllyLjrfvrxyq6Pr1H05qqflifRKu4HvthHwr0UfrSp90QAA0aKw/3Jd4rVcKLFt4sczlxqGjNGJbkJxD+GE0VgzatEpveg2nS/4bLsebYv6yPsnzBWzQVFV42AgjbFsQ9+fRoLUg2o+n8PM1v4xF/q+e0l8MO+nU+MfpJ2i2+olIbwRLTYqRgFGs/tZRoRAF3Gs24D/3+ihkZgQ1vxtxesCfPDW2k4+N+vAR2hij5aQFVKMA/KjgYEYJ/adKlbd5FDxX357C60nW+7HIcPxEXq1ltOTaoifsSDKwZA+WcV4ncOejA+bru0fM5QWQauM/TYrqqhTrL0GZo+Weg00ptFQodK9tdTOvXTlspIzgtmNMJQScgbd5+143l/e2TLrqM=
+
+cache:
+  directories:
+  - ".autoconf"
+  - "$HOME/.m2"
+  - "$HOME/.buckdir"
+
+addons:
+  apt:
+    packages:
+    - oracle-java8-installer
+
+before_install: ./scripts/before_install.sh
+
+install:
+  - curl -s "https://get.sdkman.io" | bash
+  - source "/home/travis/.sdkman/bin/sdkman-init.sh"
+  - sdk install kotlin && kotlinc -version
+  - pushd ${HOME}/.buckdir && ant && popd
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+script:
+  - mvn clean test jacoco:report coveralls:report
+  - buck fetch -v 0 //...&& buck build -v 1 //...
+
+after_success:
+  - cp -a settings.xml $HOME/.m2/ && ./scripts/oss-jfrog-deploy.sh

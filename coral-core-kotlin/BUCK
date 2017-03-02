@@ -1,0 +1,40 @@
+# findbugs
+remote_file(
+  name = "jsr305.jar",
+  url  = "mvn:com.google.code.findbugs:jsr305:jar:3.0.1",
+  sha1 = "f7be08ec23c21485b9b5a1cf1654c2ec8c58168d"
+)
+
+prebuilt_jar(
+  name = "jsr305",
+  binary_jar = ":jsr305.jar"
+)
+
+# kotlin-stdlib
+remote_file(
+  name = "kotlin-stdlib.jar",
+  url  = "mvn:org.jetbrains.kotlin:kotlin-stdlib:jar:1.0.6",
+  sha1 = "d19acb6ed49b9c48228c0e5dff8071fce23be4b8"
+)
+
+prebuilt_jar(
+  name = "kotlin-stdlib",
+  binary_jar = ":kotlin-stdlib.jar"
+)
+
+
+kotlin_library(
+  name = 'lib',
+  srcs = glob([
+		'src/main/kotlin/**/*.kt',
+	]),
+  source = '6',
+  target = '6',
+  deps = [
+    ':kotlin-stdlib',
+    '//coral-core:lib',
+  ],
+  visibility = [
+    'PUBLIC',
+  ],
+)

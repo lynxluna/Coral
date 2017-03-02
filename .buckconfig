@@ -1,0 +1,6 @@
+[java]
+source_level = 6
+target_level = 6
+
+[maven_repositories]
+jcenter = https://jcenter.bintray.com/
