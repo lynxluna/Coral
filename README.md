@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Bhinneka/Coral.svg?branch=master)](https://travis-ci.org/Bhinneka/Coral)
 [![Coverage Status](https://img.shields.io/coveralls/Bhinneka/Coral/master.svg)](https://coveralls.io/github/Bhinneka/Coral?branch=master)
+[![Code Climate](https://codeclimate.com/github/Bhinneka/Coral/badges/gpa.svg)](https://codeclimate.com/github/Bhinneka/Coral)
 
 A Domain Driven Design Library for the Java Virtual Machine.
 
