@@ -24,8 +24,8 @@
   </licenses>
 
   <organization>
-    <name>YKode</name>
-    <url>http://www.ykode.com/</url>
+    <name>Bhinneka</name>
+    <url>https://www.bhinneka.com</url>
   </organization>
 
   <groupId>com.bhinneka.coral</groupId>
@@ -239,7 +239,7 @@
     </snapshotRepository>
     <repository>
       <id>ykode-bintray</id>
-      <url>https://api.bintray.com/maven/ykode/coral/coral/</url>
+      <url>https://api.bintray.com/maven/bhinneka/coral/coral/</url>
     </repository>
   </distributionManagement>
 </project>
