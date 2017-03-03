@@ -8,7 +8,7 @@ A Domain Driven Design Library for the Java Virtual Machine.
 
 # LICENSE
 
-Copyright 2017 Didiet Noor
+Copyright 2017 Bhinneka Mentari Dimensi
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
