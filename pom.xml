@@ -23,8 +23,8 @@
   </licenses>
 
   <organization>
-    <name>Bhinneka</name>
-    <url>https://www.bhinneka.com</url>
+    <name>PT Bhinneka Mentari Dimensi</name>
+    <url>http://www.bhinneka.com/</url>
   </organization>
 
   <groupId>com.bhinneka.coral</groupId>
@@ -37,6 +37,7 @@
     <module>coral-memory-store</module>
     <module>coral-core-kotlin</module>
     <module>coral-dispatcher</module>
+    <module>coral-codec-protobuf</module>
   </modules>
 
   <dependencyManagement>
@@ -110,6 +111,11 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <excludes>
+            <exclude>com/bhinneka/coral/protocols/**/*</exclude>
+          </excludes>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.eluder.coveralls</groupId>

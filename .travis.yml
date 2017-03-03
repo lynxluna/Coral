@@ -26,6 +26,7 @@ install:
   - curl -s "https://get.sdkman.io" | bash
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
   - sdk install kotlin && kotlinc -version
+  - sdk install maven && mvn -version
   - pushd ${HOME}/.buckdir && ant && popd
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
