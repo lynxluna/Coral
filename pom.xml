@@ -9,9 +9,9 @@
   </properties>
 
   <scm>
-    <url>http://github.com/ykode/coral</url>
-    <connection>scm:git:git://github.com/ykode/coral.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/ykode/coral.git</developerConnection>
+    <url>http://github.com/Bhinneka/coral</url>
+    <connection>scm:git:git://github.com/Bhinneka/coral.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/Bhinneka/coral.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
@@ -115,9 +115,6 @@
         <groupId>org.eluder.coveralls</groupId>
         <artifactId>coveralls-maven-plugin</artifactId>
         <version>4.3.0</version>
-        <configuration>
-          <repoToken>thLnj2y4UvFslD4ATCJ5ZYpWQJnh57GT0</repoToken>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
