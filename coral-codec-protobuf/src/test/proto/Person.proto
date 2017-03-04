@@ -6,9 +6,11 @@ option java_outer_classname = "PersonProtocol";
 message CreatePerson {
     string name = 1;
     float  age  = 2;
+    string website = 3;
 }
 
 message PersonCreated {
     string name = 1;
     float  age  = 2;
+    string website = 3;
 }

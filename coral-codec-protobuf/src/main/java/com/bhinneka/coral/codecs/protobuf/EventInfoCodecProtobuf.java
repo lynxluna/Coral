@@ -63,6 +63,10 @@ public class EventInfoCodecProtobuf implements EventInfoCodec<EventInfoProtocol.
         try {
           f.setAccessible(true);
           final Object v = f.get(info.getEvent());
+
+          if (v == null) {
+            continue;
+          }
           final Class<?> builderKlass = msg.getClass();
 
           Class<?> paramKlass;

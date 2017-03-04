@@ -13,12 +13,19 @@ import com.google.protobuf.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.junit.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
-public class EventInfoCodecProtobufTest {
-  final Event<Person> personCreated = new PersonCreated("Didiet", 22);
+public class EventInfoCodecProtobufTest{
+  final Event<Person> personCreated;
   final EventInfoCodecProtobuf codec = new EventInfoCodecProtobuf();
+
+  public EventInfoCodecProtobufTest() throws MalformedURLException {
+    personCreated = new PersonCreated("Didiet", 22,
+        new URL("http://www.google.com"));
+  }
 
   @Test
   public void testEncodeEvent() throws InvalidProtocolBufferException {
