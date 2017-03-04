@@ -1,0 +1,14 @@
+syntax = 'proto3';
+package coral.test;
+option java_package = "com.bhinneka.coral.protocols.test";
+option java_outer_classname = "PersonProtocol";
+
+message CreatePerson {
+    string name = 1;
+    float  age  = 2;
+}
+
+message PersonCreated {
+    string name = 1;
+    float  age  = 2;
+}
