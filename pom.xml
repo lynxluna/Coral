@@ -29,7 +29,7 @@
 
   <groupId>com.bhinneka.coral</groupId>
   <artifactId>coral</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>0.5.0</version>
   <name>Coral</name>
   <packaging>pom</packaging>
   <modules>
@@ -230,7 +230,7 @@
     </snapshotRepository>
     <repository>
       <id>ykode-bintray</id>
-      <url>https://api.bintray.com/maven/bhinneka/coral/coral/</url>
+      <url>https://api.bintray.com/maven/bhinneka/Coral/coral/</url>
     </repository>
   </distributionManagement>
 </project>
