@@ -1,38 +1,50 @@
 package com.bhinneka.coral.dispatcher;
 
 import com.bhinneka.coral.core.Command;
-import com.bhinneka.coral.core.Event;
+import com.bhinneka.coral.core.exceptions.InvalidCommandException;
 import com.bhinneka.coral.dispatcher.exceptions.ExecutorEmptyException;
 import com.bhinneka.coral.dispatcher.exceptions.ExecutorNotFoundException;
 
+import javax.annotation.Nonnull;
+import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 
-class ExecutorManager<S> {
-  private HashMap<Class<? extends Command<S>>, ExecutorPair<S>> executorMap;
-
-  ExecutorManager() {
-    executorMap = new HashMap<Class<? extends Command<S>>, ExecutorPair<S>>(5);
+public class ExecutorManager<S> {
+  private HashMap<Type, Executor<S>> executors;
+  private ExecutorManager(HashMap<Type, Executor<S>> executors) {
+    this.executors = executors;
   }
 
-  void addExecutor(Class<? extends Command<S>> type, Executor<S> executor) {
-    executorMap.put(type, new ExecutorPair<S>(executor));
-  }
+  public void execute(@Nonnull S state,
+                      @Nonnull Command<S> command) throws InvalidCommandException {
 
-  void addExecutor(Class<? extends Command<S>> type, Executor<S> executor,
-                          Validator<S> validator) {
-    executorMap.put(type, new ExecutorPair<S>(executor, validator));
-  }
-
-  List<Event<S>> execute(S state, Command<S> command)
-      throws ExecutorEmptyException, ExecutorNotFoundException {
-    if (executorMap.isEmpty()) {
-      throw new ExecutorEmptyException();
+    if (executors.isEmpty()) {
+      throw new ExecutorEmptyException(command, state);
     }
-    final ExecutorPair<S> pair = executorMap.get(command.getClass());
-    if (pair == null) {
-      throw new ExecutorNotFoundException(command);
+
+    final Executor<S> executor = executors.get(command.getClass());
+    if (executor == null) {
+      throw new ExecutorNotFoundException(command, state);
     }
-    return pair.execute(state, command);
+    else {
+      executor.execute(state, command);
+    }
+  }
+
+  public Builder<S> newBuilder() {
+    return new Builder<S>();
+  }
+
+  public static class Builder<S> {
+    private HashMap<Type, Executor<S>> executors;
+
+    @Nonnull final ExecutorManager<S> build() {
+      return new ExecutorManager<S>(executors);
+    }
+
+    final Builder<S> addExecutor(Class<? extends Command<S>> klass, Executor<S> executor) {
+      executors.put(klass, executor);
+      return this;
+    }
   }
 }
