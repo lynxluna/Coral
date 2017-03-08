@@ -1,6 +1,7 @@
 package com.bhinneka.coral.dispatcher;
 
 import com.bhinneka.coral.core.Command;
+import com.bhinneka.coral.core.Event;
 import com.bhinneka.coral.core.exceptions.InvalidCommandException;
 import com.bhinneka.coral.dispatcher.exceptions.ExecutorEmptyException;
 import com.bhinneka.coral.dispatcher.exceptions.ExecutorNotFoundException;
@@ -8,6 +9,7 @@ import com.bhinneka.coral.dispatcher.exceptions.ExecutorNotFoundException;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 
 public class ExecutorManager<S> {
   private HashMap<Type, Executor<S>> executors;
@@ -15,8 +17,8 @@ public class ExecutorManager<S> {
     this.executors = executors;
   }
 
-  public void execute(@Nonnull S state,
-                      @Nonnull Command<S> command) throws InvalidCommandException {
+  public List<Event<S>> execute(@Nonnull S state,
+                                @Nonnull Command<S> command) throws InvalidCommandException {
 
     if (executors.isEmpty()) {
       throw new ExecutorEmptyException(command, state);
@@ -27,7 +29,7 @@ public class ExecutorManager<S> {
       throw new ExecutorNotFoundException(command, state);
     }
     else {
-      executor.execute(state, command);
+      return executor.execute(state, command);
     }
   }
 
