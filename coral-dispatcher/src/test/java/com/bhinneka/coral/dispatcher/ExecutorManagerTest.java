@@ -1,9 +1,11 @@
 package com.bhinneka.coral.dispatcher;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 import com.bhinneka.coral.core.Command;
+import com.bhinneka.coral.core.Event;
 import com.bhinneka.coral.dispatcher.exceptions.ExecutorEmptyException;
 import com.bhinneka.coral.dispatcher.exceptions.ExecutorNotFoundException;
 import org.assertj.core.api.ThrowableAssert;
@@ -12,6 +14,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ExecutorManagerTest {
 
@@ -36,7 +41,7 @@ public class ExecutorManagerTest {
   }
 
   @Test
-  public void testNoHandler() {
+  public void testNoExecutor() {
     final ExecutorManager<Person> executorManager = ExecutorManager
         .<Person>newBuilder()
         .addExecutor(CreatePerson.class, personMockExecutor)
@@ -53,16 +58,24 @@ public class ExecutorManagerTest {
   }
 
   @Test
-  public void testHandler() {
+  public void testCommandExecutor() {
+    final Person zero = new Person("",0);
+    final CreatePerson createPerson = new CreatePerson("Didiet", 22);
+    final PersonCreated personCreated = new PersonCreated("Didiet", 22);
+    final List<Event<Person>> listEvent = Collections.singletonList((Event<Person>) personCreated);
+
+    when(personMockExecutor.execute(eq(zero), eq(createPerson)))
+        .thenReturn(listEvent);
+
     final ExecutorManager<Person> executorManager = ExecutorManager
         .<Person>newBuilder()
         .addExecutor(CreatePerson.class, personMockExecutor)
         .build();
 
-    executorManager.execute(new Person("",0), new CreatePerson("Didiet", 22));
+    assertThat(executorManager.execute(zero, createPerson)).isEqualTo(listEvent);
 
     verify(personMockExecutor, times(1))
-        .execute(eq(new Person("", 0)), eq(new CreatePerson("Didiet", 22)));
+        .execute(eq(zero), eq(createPerson));
 
   }
 }
