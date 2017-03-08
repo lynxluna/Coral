@@ -44,6 +44,10 @@ public class ValidationManager<S> {
       validatorMap = new HashMap<Type, List<Validator<S>>>();
     }
 
+    @Nonnull final ValidationManager<S> build() {
+      return new ValidationManager<S>(validatorMap);
+    }
+
     void addValidator(@Nonnull Class<? extends Command<S>> klass,
                       @Nonnull Validator<S> validator) {
       final List<Validator<S>> validators = validatorMap.get(klass);
