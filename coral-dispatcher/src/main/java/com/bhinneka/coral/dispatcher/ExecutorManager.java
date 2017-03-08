@@ -31,12 +31,16 @@ public class ExecutorManager<S> {
     }
   }
 
-  public Builder<S> newBuilder() {
+  @Nonnull public static <S> Builder<S> newBuilder() {
     return new Builder<S>();
   }
 
   public static class Builder<S> {
     private HashMap<Type, Executor<S>> executors;
+
+    private Builder() {
+      executors = new HashMap<Type, Executor<S>>();
+    }
 
     @Nonnull final ExecutorManager<S> build() {
       return new ExecutorManager<S>(executors);

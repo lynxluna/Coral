@@ -33,7 +33,7 @@ public class ValidationManager<S> {
     }
   }
 
-  public Builder<S> newBuilder() {
+  @Nonnull public static <S> Builder<S> newBuilder() {
     return new Builder<S>();
   }
 

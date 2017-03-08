@@ -27,7 +27,7 @@ public class EventHandlerManager<S> {
     return eventHandler.apply(state, event);
   }
 
-  @Nonnull public final Builder<S> newBuilder() {
+  @Nonnull public static <S> Builder<S> newBuilder() {
     return new Builder<S>();
   }
 
