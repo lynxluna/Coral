@@ -37,7 +37,6 @@
     <module>coral-memory-store</module>
     <module>coral-core-kotlin</module>
     <module>coral-dispatcher</module>
-    <module>coral-codec-protobuf</module>
   </modules>
 
   <dependencyManagement>
